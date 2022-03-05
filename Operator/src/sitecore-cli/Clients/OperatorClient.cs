@@ -29,7 +29,7 @@ namespace Web3.Operator.Cli.Clients
 
     internal class OperatorClient : IOperatorClient
     {
-        public const string BaseUrl = "http://operator-127-0-0-1.nip.io/";
+        public const string BaseUrl = "http://operator-127-0-0-1.nip.io";
 
         private HttpClient Init()
         {
@@ -75,10 +75,10 @@ namespace Web3.Operator.Cli.Clients
             async IAsyncEnumerable<string> Read()
             {
                 using var client = Init();
-                using var response = await client.GetAsync(uri, token);
+                using var response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token);
                 using var body = await response.Content.ReadAsStreamAsync();
                 using var reader = new StreamReader(body);
-                while (!reader.EndOfStream)
+                while (!reader.EndOfStream && !token.IsCancellationRequested)
                 {
                     yield return reader.ReadLine();
                 }
