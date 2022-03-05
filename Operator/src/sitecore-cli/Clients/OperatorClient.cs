@@ -60,6 +60,12 @@ namespace Web3.Operator.Cli.Clients
                 $"&user={HttpUtility.UrlEncode(Environment.UserName)}";
             using var client = Init();
             using var response = await client.PostAsync(uri, new StringContent(string.Empty));
+            if(!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"Could not create: {response.StatusCode}");
+                return null;
+            }
+
             var url = await response.Content.ReadAsStringAsync();
             return url;
         }

@@ -22,8 +22,12 @@ namespace Web3.Operator.Cli.Tasks
         {
             args.Validate();
 
+            _logger.LogConsoleInformation("Starting instance...");
             var url = await _client.StartNewInstance(args.InstanceName, args.SitecoreAdminPassword);
-            _logger.LogConsoleInformation($"Created {url}", System.ConsoleColor.Green);
+            if(url != null)
+            {
+                _logger.LogConsoleInformation($"Created {url}", System.ConsoleColor.Green);
+            }
         }
     }
 }
