@@ -60,12 +60,14 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 
 ⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
 
-<!-- TODO -->
+Go to the [rendering host example](examples/rendering-host/README.md) to try it out.
 
 ## Comments
+
 Of course we have important comments.
 
 As an extra benefit and in the spirit of Hackathon and Community fun the CLI has been extended with a couple of entertainment features as well:
-1. dotnet sitecore joke tell [--sj / --sitecore-joke] : get a random dad joke displayed pulled from an external and free dad joke service or specify the option to get a curated Sitecore joke instead.
-1. dotnet sitecore steve says : get insights related to Sitecore's upcoming roadmap based on input from an external content service.
+
+1. `dotnet sitecore joke tell [--sj / --sitecore-joke]` : get a random dad joke displayed pulled from an external and free dad joke service or specify the option to get a curated Sitecore joke instead.
+1. `dotnet sitecore steve says` : get insights related to Sitecore's upcoming roadmap based on input from an external content service.
 1. you can use aliases such as blockchain, nft and wallet - we are a real web 3.0 team!
