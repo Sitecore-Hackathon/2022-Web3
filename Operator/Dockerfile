@@ -4,10 +4,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+COPY ["nuget.config", "./"]
 COPY ["Web3-Operator.sln", "./"]
 COPY ["src/api/Api.csproj", "./src/api/"]
 COPY ["src/core/Core.csproj", "./src/core/"]
 COPY ["src/docker-engine/DockerEngineOperator.csproj", "./src/docker-engine/"]
+COPY ["src/sitecore-cli/sitecore-cli.csproj", "./src/sitecore-cli/"]
 RUN dotnet restore
 COPY . .
 RUN dotnet build "src/api/Api.csproj" -c Release -o /app/build

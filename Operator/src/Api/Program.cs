@@ -10,7 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Configuration.AddEnvironmentVariables();
-builder.Services.AddTransient<OperatorConfiguration>();
+var cfg = builder.Configuration.GetRequiredSection("Operator").Get<OperatorConfiguration>();
+builder.Services.AddTransient(_ => cfg);
 
 // TODO: Dynamically load engines
 builder.Services.AddDockerEngineOperator();

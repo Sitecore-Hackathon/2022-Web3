@@ -11,14 +11,20 @@ namespace Web3.Operator.Api
                 return "Hi, I am Sitecore Operator";
             }).ExcludeFromDescription();
 
-            app.MapPost("/start", (string instanceName, string sitecoreAdminPassword, string? userName, IOperatorEngine engine) =>
+            app.MapPost("/start", (string instanceName, string sitecoreAdminPassword, string? userName, int? memoryMB, long? cpuCount, IOperatorEngine engine) =>
             {
-                return engine.StartInstance(new InstanceOptions(instanceName, sitecoreAdminPassword, userName));
+                return engine.StartInstance(new InstanceOptions(
+                    instanceName, 
+                    sitecoreAdminPassword, 
+                    userName,
+                    memoryMB ?? 1024,
+                    cpuCount ?? 2
+                    ));
             }).WithName("StartInstance");
 
             app.MapPost("/stop", (string instanceName, IOperatorEngine engine) =>
             {
-                return engine.StopInstance(new InstanceOptions(instanceName, string.Empty, null));
+                return engine.StopInstance(new InstanceOptions(instanceName, string.Empty, null, 0, 0));
             }).WithName("StopInstance");
 
             app.MapGet("/list", (IOperatorEngine engine) =>

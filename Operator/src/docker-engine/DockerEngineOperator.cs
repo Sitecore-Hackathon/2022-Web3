@@ -5,11 +5,6 @@ using Web3.Operator.Engines.Core;
 
 namespace Web3.Operator.Engines.DockerEngine
 {
-    public class DockerEngineConfiguration
-    {
-        public Uri EngineUrl { get; set; } = new Uri("npipe://./pipe/docker_engine");
-    }
-
     public class DockerEngineOperator : IOperatorEngine
     {
         private const string OperatorNameLabel = "sitecoreoperator.name";
@@ -18,11 +13,7 @@ namespace Web3.Operator.Engines.DockerEngine
         private readonly OperatorConfiguration _configuration;
         private readonly DockerClient _client;
 
-        public DockerEngineOperator(OperatorConfiguration configuration)
-            : this(configuration, new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine")))
-        { }
-
-        private DockerEngineOperator(OperatorConfiguration configuration, DockerClientConfiguration clientConfiguration)
+        public DockerEngineOperator(OperatorConfiguration configuration, DockerClientConfiguration clientConfiguration)
         {
             _configuration = configuration;
             _client = clientConfiguration.CreateClient();
@@ -51,7 +42,13 @@ namespace Web3.Operator.Engines.DockerEngine
                 var name = c.Names.First().TrimStart('/');
                 var rule = c.Labels.TryGetValue($"traefik.http.routers.{name}.rule", out value) ? value : string.Empty;
                 var hostName = rule?.Length > 8 ? rule.Substring(6, rule.Length - 8) : string.Empty;
-                return new InstanceDetails(instanceName, hostName, c.Image, c.State, c.Status);
+                return new InstanceDetails(
+                    instanceName, 
+                    hostName, 
+                    c.Image, 
+                    c.State, 
+                    c.Status
+                    );
             }).ToList();
             return result;
         }
@@ -82,11 +79,16 @@ namespace Web3.Operator.Engines.DockerEngine
                 {
                     $"SITECORE_ADMIN_PASSWORD={options.SitecoreAdminPassword}",
                 },
+                HostConfig = new HostConfig
+                {
+                    Memory = Convert.ToInt64(options.MemoryMB) * 1024 * 1024,
+                    CPUCount = options.CPUCount,
+                }
             });
             var id = result.ID;
             await _client.Containers.StartContainerAsync(id, new ContainerStartParameters());
 
-            return id;
+            return hostName;
         }
 
         public async Task StopInstance(InstanceOptions options)

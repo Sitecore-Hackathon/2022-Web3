@@ -5,6 +5,11 @@ $ProgressPreference = "SilentlyContinue"
 # build glitterfish cm image
 $glitterfishPath = (Join-Path $PSScriptRoot "\glitterfish")
 
+$licensePath = Join-Path $glitterfishPath "docker\build\cm\license.xml"
+If (-not (Test-Path $licensePath)) {
+    Write-Error "Missing Sitecore license at $licensePath"
+}
+
 Write-Host "### Building using working directory '$glitterfishPath'..."
 
 Push-Location -Path $glitterfishPath
@@ -21,10 +26,29 @@ finally
 }
 
 # build operator
-Write-Host "### TODO: build operator"
+Write-Host "### build operator"
+$operatorPath = Join-Path $PSScriptRoot "operator"
+Push-Location -Path $operatorPath
+
+try {
+    docker-compose build
+
+    $LASTEXITCODE -ne 0 | Where-Object { $_ } | ForEach-Object { throw "Build failed." }
+} finally {
+    Pop-Location
+}
 
 # build cli plugin
 Write-Host "### TODO: build cli plugin"
+$operatorPath = Join-Path $PSScriptRoot "operator/src/sitecore-cli"
+Push-Location -Path $operatorPath
+try {
+    dotnet restore
+    dotnet build
+    $LASTEXITCODE -ne 0 | Where-Object { $_ } | ForEach-Object { throw "Build failed." }
+} finally {
+    Pop-Location
+}
 
 # done
 Write-Host "### Done."
