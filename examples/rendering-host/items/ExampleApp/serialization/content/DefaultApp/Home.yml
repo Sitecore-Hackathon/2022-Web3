@@ -1,0 +1,67 @@
+﻿---
+ID: "453c1c1a-7e24-4f2f-8069-84165c6130a3"
+Parent: "c4b9ac9e-62e2-4118-bda2-c69fafd8e282"
+Template: "85cd20bd-9e45-40d1-bb24-9b165667ea7a"
+Path: /sitecore/content/DefaultApp/Home
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Value: |
+    <r xmlns:p="p" xmlns:s="s"
+      p:p="1">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+        <r
+          uid="{704C35CE-5904-4AE1-96B9-D6A655B65937}"
+          s:ds="{6E499575-A810-4B31-8C38-5F1BFB175F54}"
+          s:id="{E6E28E91-A0A4-43D1-96E8-10DA545F92A2}"
+          s:par=""
+          s:ph="/reforgeexample-main" />
+      </d>
+    </r>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{704C35CE-5904-4AE1-96B9-D6A655B65937}"
+              s:ccb="Clear on publish"
+              s:ph="/reforgeexample-main" />
+          </d>
+        </r>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200526T204317Z
+    - ID: "4a220fd7-96db-4082-baeb-0ecae85ef200"
+      Hint: Banner
+      Value: |
+        <image mediaid="{48887726-93E9-47AE-9B39-16113C6A8206}" />
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\Admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "cd9b5b6b-b61f-44d8-a95d-9edfc086dbb1"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20220305T143859Z
+    - ID: "e5365688-b6bb-41ab-aafb-3215d68507d8"
+      Hint: Title
+      Value: Welcome to Sitecore EXAMPLE APP

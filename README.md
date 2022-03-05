@@ -40,12 +40,6 @@ _You can alternately paste a [link here](#docs) to a document within this repo c
 1. Make sure you have placed a valid Sitecore license file at `.\glitterfish\docker\build\cm\license.xml`.
 1. Run `.\Build.ps1`.
 
-### Configuration
-
-⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
-
-_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
-
 ## Usage instructions
 
 ⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
