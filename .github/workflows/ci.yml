@@ -23,10 +23,10 @@ jobs:
         NUGET_AUTH_TOKEN: ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
 
     - name: Restore
-      run: dotnet restore ./Operator/Web3-Operator.sln
+      run: dotnet restore ./Operator/src/sitecore-cli/sitecore-cli.csproj
 
-    - name: Build
-      run: dotnet build ./Operator/Web3-Operator.sln --configuration Release --no-restore
+    - name: Build plugin
+      run: dotnet build ./Operator/src/sitecore-cli/sitecore-cli.csproj --configuration Release --no-restore
 
-    - name: Push generated package to GitHub registry
+    - name: Push plugin nuget
       run: dotnet nuget push ./Operator/src/sitecre-cli/nupkg/*.nupkg --skip-duplicate --no-symbols true
