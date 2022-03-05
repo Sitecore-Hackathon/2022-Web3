@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Web3.Operator.Cli.Clients;
 using Web3.Operator.Cli.Commands;
+using Web3.Operator.Cli.Services;
 using Web3.Operator.Cli.Tasks;
 
 namespace Web3.Operator.Cli
@@ -55,7 +56,8 @@ namespace Web3.Operator.Cli
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StartInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StopInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>())
-                .AddTransient<Clients.IOperatorClient, Clients.OperatorClient>();
+                .AddTransient<IUserConfigService, UserConfigService>()
+                .AddTransient<IOperatorClient, OperatorClient>();
         }
     }
 }
