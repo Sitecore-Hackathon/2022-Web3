@@ -2,13 +2,20 @@
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
-# start
+# Prerequisites 
+Write-Host "This project requires to map port 80 to a local traefik instance"
+$iisStatus = Get-Service -Name w3svc | Select-Object -ExpandProperty Status
+if("${iisStatus}" -eq "Running") {
+    Write-Host "We noticed that you have IIS running - as a precaution, we will stop IIS service`n" -ForegroundColor Yellow
+    Stop-Service -Name w3svc -Verbose
+}
+
+# Start
 $operatorPath = Join-Path $PSScriptRoot "\operator"
-
-Push-Location -Path $operatorPath
-
 try
 {
+    Push-Location -Path $operatorPath
+
     $env:NETWORK_NAME = "operatornet"
     $id = $(docker network ls -f name=${env:NETWORK_NAME} -q )
     if("${id}" -eq "") {
