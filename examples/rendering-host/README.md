@@ -32,4 +32,4 @@ Now you can push example items and start hot reload (default browser should open
 
 - Stop and remove instance: `dotnet sitecore instance stop -n 'example'`
 - List all instances: `dotnet sitecore instance list`
-- Tail Sitecore log from instance: `dotnet sitecore instance logs -n example`
+- Tail Sitecore log from instance: `dotnet sitecore instance logs -n 'example'`
