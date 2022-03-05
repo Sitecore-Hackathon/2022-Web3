@@ -13,7 +13,10 @@ namespace Web3.Operator.Engines.DockerEngine
 
         public DockerEngineOperator(OperatorConfiguration configuration, DockerEngineConfiguration engineConfig)
         {
-            _configuration = configuration;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            if(engineConfig == null) throw new ArgumentNullException(nameof(engineConfig));
+            if(engineConfig.Url == null) throw new ArgumentException("Engine url required", nameof(engineConfig));
+            
             var clientConfig = new DockerClientConfiguration(new Uri(engineConfig.Url));
             _client = clientConfig.CreateClient();
         }
@@ -66,8 +69,8 @@ namespace Web3.Operator.Engines.DockerEngine
 
             await EnsureImage();
 
-            var existingId = GetInstanceId(options);
-            if(existingId != null)
+            var existingId = await GetInstanceId(options);
+            if(existingId == null || existingId.Any())
             {
                 return new StartedResult(url, "AlreadyRunning");
             }
@@ -94,6 +97,13 @@ namespace Web3.Operator.Engines.DockerEngine
                 {
                     Memory = Convert.ToInt64(options.MemoryMB) * 1024 * 1024,
                     CPUCount = options.CPUCount,
+                },
+                NetworkingConfig = new NetworkingConfig
+                {
+                    EndpointsConfig = new Dictionary<string, EndpointSettings>
+                    {
+                        { _configuration.DockerNetworkName, new EndpointSettings() }
+                    }
                 }
             });
             var id = result.ID;

@@ -12,6 +12,9 @@ services:
       Operator__HostNamePattern: '{0}-127-0-0-1.nip.io'
       Operator__InstanceImage: sitecore-glitterfish-cm:latest
       Operator__DefaultMemoryMb: 1500
+      Operator__DockerNetworkName: ${NETWORK_NAME}
+    networks:
+      - net
     volumes:
     - type: npipe
       source: \\.\pipe\docker_engine
@@ -36,7 +39,14 @@ services:
       - "8079:8080"
     healthcheck:
       test: ["CMD", "traefik", "healthcheck", "--ping"]
+    networks:
+      - net
     volumes:
       - source: \\.\pipe\docker_engine
         target: \\.\pipe\docker_engine
         type: npipe
+
+networks:
+  net:
+    external:
+      name: ${NETWORK_NAME}
