@@ -25,6 +25,7 @@ services:
     image: traefik:v2.6.1-windowsservercore-1809
     command:
       - "--ping"
+      - "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
       - "--providers.docker.exposedByDefault=false"

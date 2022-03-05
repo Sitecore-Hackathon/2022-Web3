@@ -15,14 +15,13 @@ Clone and install Sitecore CLI:
 
 Then to configure a operator and start new instance:
 
-1. `dotnet sitecore instance init --url 'http://localhost:80'` TODO: add local url
-1. `dotnet sitecore instance start -n 'winner' --pwd 'b'`
-1. `$env:SITECORE__INSTANCEURI="ZZZZ"` (powershell) or `export SITECORE__INSTANCEURI=ZZZ` (bash)
-1. TODO: update ZZZ with instance url
+1. `dotnet sitecore instance init --url http://operator-127-0-0-1.nip.io` TODO: add local url
+1. `dotnet sitecore instance start -n 'example' --pwd 'b'`
+1. `$env:SITECORE__INSTANCEURI="http://example-127-0-0-1.nip.io"` (powershell) or `export SITECORE__INSTANCEURI=http://example-127-0-0-1.nip.io` (bash)
 
 Login to instance (notice the `--cm` and `--auth` urls are the same):
 
-1. `dotnet sitecore login --insecure --cm ZZZ --auth ZZZ --client-credentials true --allow-write true --client-id "sitecore\admin" --client-secret "b"`
+1. `dotnet sitecore login --insecure --cm http://example-127-0-0-1.nip.io --auth http://example-127-0-0-1.nip.io --client-credentials true --allow-write true --client-id "sitecore\admin" --client-secret "b"`
 
 Now you can push example items and start hot reload (default browser should open [http://localhost:5000](http://localhost:5000)):
 
