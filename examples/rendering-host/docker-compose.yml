@@ -1,0 +1,12 @@
+services:
+  app:
+    image: exampleapp-renderinghost
+    build:
+      context: .
+      dockerfile: ./src/ExampleApp.RenderingHost/Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    environment:
+      DOTNET_ENVIRONMENT: Development

@@ -1,0 +1,37 @@
+{
+    "namespace": "ExampleApp",
+    "items": {
+        "includes": [
+            {
+                "name": "templates",
+                "path": "/sitecore/templates/Project/ExampleApp"
+            },
+            {
+                "name": "layouts",
+                "path": "/sitecore/layout/Layouts/Project/ExampleApp"
+            },
+            {
+                "name": "renderings",
+                "path": "/sitecore/layout/Renderings/Project/ExampleApp"
+            },
+            {
+                "name": "placeholders",
+                "path": "/sitecore/layout/Placeholder Settings/Project/ExampleApp"
+            },
+            {
+                "name": "media",
+                "path": "/sitecore/media library/ExampleApp"
+            },
+            {
+                "name": "api-key",
+                "path": "/sitecore/system/Settings/Services/API Keys/ExampleApp",
+                "scope": "SingleItem"
+            },
+            {
+                "name": "content",
+                "path": "/sitecore/content/DefaultApp",
+                "scope": "DescendantsOnly"
+            }
+        ]
+    }
+}
