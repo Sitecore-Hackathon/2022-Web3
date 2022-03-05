@@ -18,7 +18,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.operator.entrypoints=web"
-      - "traefik.http.routers.operator.rule=Host(`operator.localhost`)"
+      - "traefik.http.routers.operator.rule=Host(`operator-127-0-0-1.nip.io`)"
 
   traefik:
     image: traefik:v2.2.0-windowsservercore-1809
