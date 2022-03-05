@@ -11,6 +11,7 @@ namespace Web3.Operator.Cli.Tasks
     public class TellAJokeTask
     {
         private ILogger<TellAJokeTask> _logger;
+        private readonly ICanHazDadJokeClient _iCanHazDadJokeClient;
         private Dictionary<string, string> sitecoreJokes = new Dictionary<string, string>
         {
             {"I have a joke about why are Sitecore Developers are so forgetful? Unfortunately I don't remember it because Sitecore is using all my memory.", "Steven Singh" },
@@ -22,9 +23,10 @@ namespace Web3.Operator.Cli.Tasks
             {"How do you deliver Sitecore into China? Using Containers!", "Steven Singh" }
         };
 
-        public TellAJokeTask(ILogger<TellAJokeTask> logger)
+        public TellAJokeTask(ILogger<TellAJokeTask> logger, ICanHazDadJokeClient iCanHazDadJokeClient)
         {
             _logger = logger;
+            _iCanHazDadJokeClient = iCanHazDadJokeClient;
         }
         public async Task Execute(TellAJokeArgs args)
         {
@@ -38,8 +40,7 @@ namespace Web3.Operator.Cli.Tasks
                 return;
             }
 
-            ICanHazDadJokeClient client = new ICanHazDadJokeClient("FxxK PxTxI!");
-            var joke = await client.GetRandomJokeAsync();
+            var joke = await _iCanHazDadJokeClient.GetRandomJokeAsync();
             ColorLogExtensions.LogConsole(_logger, LogLevel.Warning, GetJokeText(joke.DadJoke, "ICanHazDadJoke"));
         }
 
