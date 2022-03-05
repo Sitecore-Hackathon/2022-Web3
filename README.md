@@ -72,5 +72,4 @@ As an extra benefit and in the spirit of Hackathon and Community fun the CLI has
 1. `dotnet sitecore steve says` : get insights related to Sitecore's upcoming roadmap based on input from an external content service.
 1. you can use aliases such as `blockchain`, `nft` and `wallet` - we are a real web 3.0 team!
 
-
 ![Jokes CLI](./docs/images/jokes.png)
