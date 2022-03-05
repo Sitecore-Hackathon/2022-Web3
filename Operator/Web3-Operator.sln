@@ -5,9 +5,11 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\api\Api.csproj", "{1D6F394A-4C53-4C23-AA59-F87E7B732BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\core\Core.csproj", "{C27E3526-492D-41BF-93D1-2545BA9A8619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\core\Core.csproj", "{C27E3526-492D-41BF-93D1-2545BA9A8619}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerEngineOperator", "src\docker-engine\DockerEngineOperator.csproj", "{10CC01B5-5F18-4E72-949D-E22ACA045242}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DockerEngineOperator", "src\docker-engine\DockerEngineOperator.csproj", "{10CC01B5-5F18-4E72-949D-E22ACA045242}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sitecore-cli", "src\sitecore-cli\sitecore-cli.csproj", "{14844EC5-AAD7-4928-9F72-62A5ED37CD25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{10CC01B5-5F18-4E72-949D-E22ACA045242}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10CC01B5-5F18-4E72-949D-E22ACA045242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10CC01B5-5F18-4E72-949D-E22ACA045242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14844EC5-AAD7-4928-9F72-62A5ED37CD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14844EC5-AAD7-4928-9F72-62A5ED37CD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14844EC5-AAD7-4928-9F72-62A5ED37CD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14844EC5-AAD7-4928-9F72-62A5ED37CD25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

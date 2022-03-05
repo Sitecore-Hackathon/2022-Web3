@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+        <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomBuildOutputTarget</TargetsForTfmSpecificContentInPackage>
+        <RootNamespace>Web3.Operator.Cli</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyName>Web3.Operator.Cli</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Sitecore.DevEx.Client.Cli" Version="4.1.1" />
+    </ItemGroup>
+
+    <Target Name="CustomBuildOutputTarget">
+        <ItemGroup>
+            <TfmSpecificPackageFile Include="$(OutputPath)Web3.Operator.Cli.dll" PackagePath="plugin" />
+        </ItemGroup>
+    </Target>
+</Project>
