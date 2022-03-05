@@ -9,10 +9,8 @@ namespace Web3.Operator.Engines.DockerEngine
         {
             services.AddTransient<DockerEngineOperator>();
 
-            if (Uri.TryCreate(Environment.GetEnvironmentVariable("ENGINE_URL"), UriKind.Absolute, out var uri))
-            {
-                services.AddTransient(_ => new DockerClientConfiguration(uri));
-            }
+            var url = Environment.GetEnvironmentVariable("ENGINE_URL") ?? "npipe://./pipe/docker_engine";
+            services.AddTransient(_ => new DockerClientConfiguration(new Uri(url)));
         }
     }
 }
