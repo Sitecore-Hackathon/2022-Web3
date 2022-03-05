@@ -11,6 +11,7 @@ namespace Web3.Operator.Cli.Commands
         {
             AddAlias("nft");
             AddOption(ArgOptions.SitecoreAdminPassword);
+            AddOption(ArgOptions.InstanceName);
         }
 
         protected override async Task<int> Handle(StartInstanceTask task, StartInstanceArgs args)
