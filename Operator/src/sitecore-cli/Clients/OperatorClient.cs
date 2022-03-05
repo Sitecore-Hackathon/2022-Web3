@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Sitecore.DevEx.Client.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,9 +32,16 @@ namespace Web3.Operator.Cli.Clients
     internal class OperatorClient : IOperatorClient
     {
         public const string BaseUrl = "http://operator-127-0-0-1.nip.io";
+        private ILogger<OperatorClient> _logger;
+
+        public OperatorClient(ILogger<OperatorClient> logger)
+        {
+            _logger = logger;
+        }
 
         private HttpClient Init()
         {
+            _logger.LogConsoleInformation($"Using {BaseUrl}", ConsoleColor.Gray);
             var client = new HttpClient { BaseAddress = new Uri(BaseUrl) };
             client.DefaultRequestHeaders.UserAgent.TryParseAdd($"Speedo: https://github.com/Sitecore-Hackathon/2021-Anonymous-Sitecoreholics");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");

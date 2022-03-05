@@ -9,12 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Configuration.AddJsonFile("appsettings.json");
 builder.Configuration.AddEnvironmentVariables();
-var cfg = builder.Configuration.GetRequiredSection("Operator").Get<OperatorConfiguration>();
-builder.Services.AddTransient(_ => cfg);
+var cfg1 = builder.Configuration.GetRequiredSection("Operator").Get<OperatorConfiguration>();
+builder.Services.AddTransient(_ => cfg1);
 
-// TODO: Dynamically load engines
 builder.Services.AddDockerEngineOperator();
+var cfg2 = builder.Configuration.GetRequiredSection("DockerEngine").Get<DockerEngineConfiguration>();
+builder.Services.AddTransient(_ => cfg2);
+
+// TODO: Dynamically switch engines
 builder.Services.AddTransient(typeof(IOperatorEngine), typeof(Web3.Operator.Engines.DockerEngine.DockerEngineOperator));
 
 var app = builder.Build();
