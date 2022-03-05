@@ -18,11 +18,22 @@
 
 ⟹ Write a clear description of your hackathon entry.
 
-- Module Purpose
-- What problem was solved (if any)
-- How does this module solve it
+### Module Purpose
 
-_You can alternately paste a [link here](#docs) to a document within this repo containing the description._
+An easy way to get running Sitecore XM CM instances for use in headless projects, also from non Windows machines - Anywhere where the Sitecore CLI runs.
+
+### What problem was solved
+
+- People on non Windows machines or low spec'ed Windows machines had trouble running a full Sitecore XM on VM's or directly on host. They can now request a fresh new Sitecore XM CM instance using Sitecore CLI `dotnet sitecore instance start --name 'xyz' --password 'b'`.
+- Hosting the backend (operator) and instances can be done on any Windows Container capable machine (Windows 10/11, Server 2019/2022), cloud or local.
+
+### How does this module solve it
+
+![Overview](docs/overview.png?raw=true "Overview")
+
+1. Sitecore CLI plugin that talks http with an operator.
+1. Operator REST API that schedules containers on a Windows host.
+1. Preconfigured lightweight Sitecore 10.2.0 XM CM, single container with embedded SQL Server 2019 Express.
 
 ## Video link
 
@@ -34,6 +45,7 @@ _You can alternately paste a [link here](#docs) to a document within this repo c
 
 - Windows 10 / 11
 - Some Docker engine, for example [Docker Desktop](https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe)
+- [.NET 6.0 SDK](https://download.visualstudio.microsoft.com/download/pr/89f0ba2a-5879-417b-ba1d-debbb2bde208/b22a9e9e4d513e4d409d2222315d536b/dotnet-sdk-6.0.200-win-x64.exe)
 
 ## Installation instructions
 
