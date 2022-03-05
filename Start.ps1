@@ -4,7 +4,7 @@ $ProgressPreference = "SilentlyContinue"
 
 # Prerequisites 
 Write-Host "This project requires to map port 80 to a local traefik instance"
-$iisStatus = Get-Service -Name w3svc | Select-Object -ExpandProperty Status
+$iisStatus = Get-Service -Name w3svc -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Status
 if("${iisStatus}" -eq "Running") {
     Write-Host "We noticed that you have IIS running - as a precaution, we will stop IIS service`n" -ForegroundColor Yellow
     Stop-Service -Name w3svc -Verbose
