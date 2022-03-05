@@ -19,6 +19,8 @@ namespace Web3.Operator.Cli.Tasks
 
         public async Task Execute(StopInstanceArgs args)
         {
+            args.Validate();
+
             await _client.StopInstance(args.InstanceName);
             _logger.LogConsoleInformation("Done", System.ConsoleColor.Green);
         }

@@ -21,7 +21,6 @@
 
     <ItemGroup>
         <PackageReference Include="Sitecore.DevEx.Client.Cli" Version="4.1.1" />
-        <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
     </ItemGroup>
 
     <Target Name="CustomBuildOutputTarget">

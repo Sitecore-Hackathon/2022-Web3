@@ -19,6 +19,8 @@ namespace Web3.Operator.Cli.Tasks
 
         public async Task Execute(ListInstancesArgs args)
         {
+            args.Validate();
+
             ColorLogExtensions.LogConsole(_logger, LogLevel.Warning, "LIST");
         }
     }

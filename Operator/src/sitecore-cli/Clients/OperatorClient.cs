@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -36,7 +35,7 @@ namespace Web3.Operator.Cli.Clients
                 $"&sitecoreAdminPassword={HttpUtility.UrlEncode(sitecoreAdminPassword)}" +
                 $"&user={HttpUtility.UrlEncode(Environment.UserName)}";
             using var client = Init();
-            using var response = await client.PostAsJsonAsync(uri, new { });
+            using var response = await client.PostAsync(uri, new StringContent(string.Empty));
             var url = await response.Content.ReadAsStringAsync();
             return url;
         }
@@ -45,7 +44,7 @@ namespace Web3.Operator.Cli.Clients
         {
             var uri = $"/stop/?instanceName={HttpUtility.UrlEncode(instanceName)}";
             using var client = Init();
-            using var response = await client.PostAsJsonAsync(uri, new { });
+            using var response = await client.PostAsync(uri, new StringContent(string.Empty));
         }
 
         public IAsyncEnumerable<string> Logs(string instanceName, CancellationToken token)
