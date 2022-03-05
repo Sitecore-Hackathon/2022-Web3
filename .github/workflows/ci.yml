@@ -18,6 +18,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+      env:
+        NUGET_AUTH_TOKEN: '%NUGET_AUTH_TOKEN%'
 
     - name: Restore
       run: dotnet restore ./Operator/src/sitecore-cli/sitecore-cli.csproj
@@ -28,3 +31,5 @@ jobs:
     - name: Push plugin nuget
       run: |
         dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate --no-symbols true
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
