@@ -3,7 +3,7 @@
 # Sitecore Hackathon 2022
 
 - MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**
-- [Entry form template](ENTRYFORM.md)
+- ~~[Entry form template](ENTRYFORM.md)~~
 - ~~[Starter kit instructions](STARTERKIT_INSTRUCTIONS.md)~~
 
 ## Team name
@@ -32,37 +32,13 @@ _You can alternately paste a [link here](#docs) to a document within this repo c
 
 ## Pre-requisites and Dependencies
 
-⟹ Does your module rely on other Sitecore modules or frameworks?
-
-- List any dependencies
-- Or other modules that must be installed
-- Or services that must be enabled/configured
-
-_Remove this subsection if your entry does not have any prerequisites other than Sitecore_
+- Windows 10 / 11
+- Some Docker engine, for example [Docker Desktop](https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe)
 
 ## Installation instructions
 
-⟹ Write a short clear step-wise instruction on how to install your module.
-
-> _A simple well-described installation process is required to win the Hackathon._
-> Feel free to use any of the following tools/formats as part of the installation:
-> - Sitecore Package files
-> - Docker image builds
-> - Sitecore CLI
-> - msbuild
-> - npm / yarn
->
-> _Do not use_
-> - TDS
-> - Unicorn
-
-f. ex.
-
-1. Start docker environment using `.\Start-Hackathon.ps1`
-2. Open solution in Visual Studio and run build
-3. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-4. ...
-5. profit
+1. Make sure you have placed a valid Sitecore license file at `.\glitterfish\docker\build\cm\license.xml`.
+1. Run `.\Build.ps1`.
 
 ### Configuration
 
