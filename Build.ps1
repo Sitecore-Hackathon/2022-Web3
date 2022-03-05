@@ -40,6 +40,15 @@ try {
 
 # build cli plugin
 Write-Host "### TODO: build cli plugin"
+$operatorPath = Join-Path $PSScriptRoot "operator/src/sitecore-cli"
+Push-Location -Path $operatorPath
+try {
+    dotnet restore
+    dotnet build
+    $LASTEXITCODE -ne 0 | Where-Object { $_ } | ForEach-Object { throw "Build failed." }
+} finally {
+    Pop-Location
+}
 
 # done
 Write-Host "### Done."
