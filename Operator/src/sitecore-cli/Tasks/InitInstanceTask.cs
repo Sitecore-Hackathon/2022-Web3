@@ -22,7 +22,7 @@ namespace Web3.Operator.Cli.Tasks
         public async Task Execute(InitInstanceArgs args)
         {
             args.Validate();
-            _userConfigService.UpdateOperatorBaseUrl(args.OperatorBaseUrl);
+            await _userConfigService.UpdateOperatorBaseUrl(args.OperatorBaseUrl);
             ColorLogExtensions.LogConsole(_logger, LogLevel.Information, "Base Url was set", System.ConsoleColor.Green);
         }
     }

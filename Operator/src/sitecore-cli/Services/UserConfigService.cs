@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Web3.Operator.Cli.Services
 {
@@ -33,7 +32,7 @@ namespace Web3.Operator.Cli.Services
             }
         }
 
-        public void UpdateOperatorBaseUrl(string value)
+        public async Task UpdateOperatorBaseUrl(string value)
         {
             var root = JObject.Parse(GetConfig());
             var web3 = root.Children<JProperty>().FirstOrDefault(x => x.Name == "web3");
@@ -50,7 +49,7 @@ namespace Web3.Operator.Cli.Services
             prop.Value = config;
             root.Add(prop);
 
-            SaveConfig(root.ToString());
+            await SaveConfig(root.ToString());
         }
 
         private string GetConfig()
@@ -69,14 +68,14 @@ namespace Web3.Operator.Cli.Services
             }
         }
 
-        private void SaveConfig(string value)
+        private async Task SaveConfig(string value)
         {
             string path = Directory.GetCurrentDirectory() + _sitecoreUserFile;
             try
             {
                 using (var writer = new StreamWriter(path))
                 {
-                    writer.Write(value);
+                    await writer.WriteAsync(value);
                 }
             }
             catch
