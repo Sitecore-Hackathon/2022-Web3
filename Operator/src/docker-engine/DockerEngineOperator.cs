@@ -43,9 +43,12 @@ namespace Web3.Operator.Engines.DockerEngine
                 var name = c.Names.First().TrimStart('/');
                 var rule = c.Labels.TryGetValue($"traefik.http.routers.{name}.rule", out value) ? value : string.Empty;
                 var hostName = rule?.Length > 8 ? rule[6..^2] : string.Empty;
+                var scheme = _configuration.HostNameTls ? "https://" : "http://";
+                var url = scheme + hostName;
                 return new InstanceDetails(
                     instanceName,
                     hostName,
+                    url,
                     c.Image,
                     c.State,
                     c.Status
