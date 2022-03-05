@@ -9,8 +9,9 @@
         public bool HostNameTls { get; set; } = false;
         public int DefaultMemoryMb { get; set; }
         public int DefaultCpu { get; set; }
-        public string OperatorNameLabel {get;set;} = "sitecoreoperator.name";
-        public string OperatorUserLabel {get;set;} = "sitecoreoperator.user";
+        public string OperatorNameLabel { get; set; } = "sitecoreoperator.name";
+        public string OperatorUserLabel { get; set; } = "sitecoreoperator.user";
+        public string DockerNetworkName { get; set; } = "operatornet";
 
     }
 }

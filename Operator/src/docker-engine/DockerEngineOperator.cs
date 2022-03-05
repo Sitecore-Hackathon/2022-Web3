@@ -13,7 +13,10 @@ namespace Web3.Operator.Engines.DockerEngine
 
         public DockerEngineOperator(OperatorConfiguration configuration, DockerEngineConfiguration engineConfig)
         {
-            _configuration = configuration;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            if(engineConfig == null) throw new ArgumentNullException(nameof(engineConfig));
+            if(engineConfig.Url == null) throw new ArgumentException("Engine url required", nameof(engineConfig));
+            
             var clientConfig = new DockerClientConfiguration(new Uri(engineConfig.Url));
             _client = clientConfig.CreateClient();
         }
@@ -55,14 +58,23 @@ namespace Web3.Operator.Engines.DockerEngine
             return result;
         }
 
-        public async Task<string> StartInstance(InstanceOptions options)
+        public async Task<StartedResult> StartInstance(InstanceOptions options)
         {
             var instanceName = options.InstanceName ?? throw new ArgumentException("Instance name must be specified");
             var cleanName = System.Text.RegularExpressions.Regex.Replace(instanceName.ToLower(), "[^a-z0-9\\-_]", "");
             var name = _configuration.InstanceNamePattern.Replace("{0}", cleanName); ;
             var hostName = _configuration.HostNamePattern.Replace("{0}", cleanName);
+            var scheme = _configuration.HostNameTls ? "https://" : "http://";
+            var url = scheme + hostName;
 
             await EnsureImage();
+
+            var existingId = await GetInstanceId(options);
+            if(existingId == null || existingId.Any())
+            {
+                return new StartedResult(url, "AlreadyRunning");
+            }
+
             var result = await _client.Containers.CreateContainerAsync(new CreateContainerParameters
             {
                 Image = _configuration.InstanceImage,
@@ -85,13 +97,19 @@ namespace Web3.Operator.Engines.DockerEngine
                 {
                     Memory = Convert.ToInt64(options.MemoryMB) * 1024 * 1024,
                     CPUCount = options.CPUCount,
+                },
+                NetworkingConfig = new NetworkingConfig
+                {
+                    EndpointsConfig = new Dictionary<string, EndpointSettings>
+                    {
+                        { _configuration.DockerNetworkName, new EndpointSettings() }
+                    }
                 }
             });
             var id = result.ID;
             await _client.Containers.StartContainerAsync(id, new ContainerStartParameters());
 
-            var scheme = _configuration.HostNameTls ? "https://" : "http://";
-            return scheme + hostName;
+            return new StartedResult(url, "Created");
         }
 
         public async Task StopInstance(InstanceOptions options)
