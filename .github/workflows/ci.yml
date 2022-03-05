@@ -18,9 +18,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        source-url: https://nuget.pkg.github.com/pbering/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
 
     - name: Restore
       run: dotnet restore ./Operator/src/sitecore-cli/sitecore-cli.csproj
@@ -29,4 +26,6 @@ jobs:
       run: dotnet build ./Operator/src/sitecore-cli/sitecore-cli.csproj --configuration Release --no-restore
 
     - name: Push plugin nuget
-      run: dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --skip-duplicate --no-symbols true --api-key ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
+      run: |
+        dotnet nuget add source --username pbering --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/pbering/index.json"
+        dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --source 'https://nuget.pkg.github.com/pbering/index.json' --skip-duplicate --no-symbols true --api-key ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
