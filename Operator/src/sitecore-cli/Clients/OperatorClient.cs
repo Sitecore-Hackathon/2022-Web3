@@ -47,7 +47,7 @@ namespace Web3.Operator.Cli.Clients
         private HttpClient Init()
         {
             var client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
-            client.DefaultRequestHeaders.UserAgent.TryParseAdd($"Speedo: https://github.com/Sitecore-Hackathon/2021-Anonymous-Sitecoreholics");
+            _logger.LogConsoleInformation($"using {_baseUrl} as operator!");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }
