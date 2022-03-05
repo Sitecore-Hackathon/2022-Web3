@@ -1,0 +1,40 @@
+version: "2.4"
+
+services:
+
+  operator:
+    build:
+      context: .
+    environment:
+      AUTH_KEY: 123
+      INSTANCE_IMAGE: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+      ENGINE_TYPE: Web3.Operator.Engines.DockerEngine.DockerEngineOperator, DockerEngineOperator
+      ENGINE_URL: npipe://./pipe/docker_engine
+    volumes:
+    - type: npipe
+      source: \\.\pipe\docker_engine
+      target: \\.\pipe\docker_engine
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.operator-secure.entrypoints=websecure"
+      - "traefik.http.routers.operator-secure.rule=Host(`operator.localhost`)"
+      # - "traefik.http.routers.operator-secure.tls=true"
+
+  traefik:
+    image: traefik:v2.2.0-windowsservercore-1809
+    command:
+      - "--ping"
+      - "--api.insecure=true"
+      - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
+      - "--providers.docker.exposedByDefault=false"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.forwardedHeaders.insecure"
+    ports:
+      - "443:443"
+      - "8079:8080"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+    volumes:
+      - source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+        type: npipe
