@@ -6,6 +6,6 @@
         public string InstanceNamePattern { get; set; } = "sc_{0}";
         public string TraefikEntrypoint { get; set; } = "websecure";
         public string HostNamePattern { get; set; } = "{0}.sitecore.localhost";
-        public string HostNameTls { get; set; } = false;
+        public bool HostNameTls { get; set; } = false;
     }
 }
