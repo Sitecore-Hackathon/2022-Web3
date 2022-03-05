@@ -24,7 +24,7 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 
 ### What problem was solved
 
-- People on non Windows machines or low spec'ed Windows machines had trouble running a full Sitecore XM on VM's or directly on host. They can now request a fresh new Sitecore XM CM instance using Sitecore CLI `dotnet sitecore instance start --name 'xyz' --password 'b'`.
+- People on non Windows machines or low spec'ed Windows machines had trouble running a full Sitecore XM on VM's or directly on host. They can now request a fresh new Sitecore XM CM instance using Sitecore CLI `dotnet sitecore instance start -n 'example' --pwd 'b'`.
 - Hosting the backend (operator) and instances can be done on any Windows Container capable machine (Windows 10/11, Server 2019/2022), cloud or local.
 
 ### How does this module solve it
