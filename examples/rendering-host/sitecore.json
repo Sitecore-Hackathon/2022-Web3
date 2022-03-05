@@ -6,7 +6,7 @@
   "plugins": [
     "Sitecore.DevEx.Extensibility.Publishing@4.1.1",
     "Sitecore.DevEx.Extensibility.Serialization@4.1.1",
-    "Web3.Operator.Cli@1.0.1"
+    "Web3.Operator.Cli@1.0.0"
   ],
   "serialization": {
     "defaultMaxRelativeItemPathLength": 100,

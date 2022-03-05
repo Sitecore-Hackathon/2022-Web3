@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Web3.Operator.Cli.Services;
 
 namespace Web3.Operator.Cli.Clients
 {
@@ -29,12 +30,18 @@ namespace Web3.Operator.Cli.Clients
 
     internal class OperatorClient : IOperatorClient
     {
-        public const string BaseUrl = "http://operator-127-0-0-1.nip.io";
+        public OperatorClient(IUserConfigService userConfigService)
+        {
+            _baseUrl = userConfigService.GetOperatorBaseUrl();
+            if (string.IsNullOrWhiteSpace(_baseUrl))
+                throw new Exception("You should learn to call init first. RTFM.");
+        }
+
+        public readonly string _baseUrl;
 
         private HttpClient Init()
         {
-            var client = new HttpClient { BaseAddress = new Uri(BaseUrl) };
-            client.DefaultRequestHeaders.UserAgent.TryParseAdd($"Speedo: https://github.com/Sitecore-Hackathon/2021-Anonymous-Sitecoreholics");
+            var client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }
