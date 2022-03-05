@@ -27,12 +27,9 @@ namespace Web3.Operator.Cli
         /// </summary>
         /// <param name="site">Site that ICanHazDadJoke can use if to get in touch with the ones using the application</param>
         /// @TODO: Make as a setting instead if time
-        public ICanHazDadJokeClient(string site)
+        public ICanHazDadJokeClient()
         {
-            if (string.IsNullOrWhiteSpace(site))
-                throw new ArgumentException(NoUserAgentMessage, nameof(site));
-
-            client = Init(site);
+            client = Init();
         }
 
         /// <summary>
@@ -40,10 +37,10 @@ namespace Web3.Operator.Cli
         /// </summary>
         /// <param name="site"></param>
         /// <returns></returns>
-        private HttpClient Init(string site)
+        private HttpClient Init()
         {
             client = new HttpClient { BaseAddress = new Uri(BaseUrl) };
-            client.DefaultRequestHeaders.UserAgent.TryParseAdd($"Web3: https://github.com/Sitecore-Hackathon/2022-Web3 - ({site})");
+            client.DefaultRequestHeaders.UserAgent.TryParseAdd($"Web3: https://github.com/Sitecore-Hackathon/2022-Web3");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }

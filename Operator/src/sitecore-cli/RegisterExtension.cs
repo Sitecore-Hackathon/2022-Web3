@@ -44,6 +44,7 @@ namespace Web3.Operator.Cli
 
             serviceCollection
                 .AddSingleton<CorporateBsGeneratorClient>()
+                .AddSingleton<ICanHazDadJokeClient>()
                 .AddSingleton<TellAJokeCommand>()
                 .AddSingleton<SteveSaysCommand>()
                 .AddSingleton<StartInstanceCommand>()
