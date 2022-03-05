@@ -27,3 +27,9 @@ Now you can push example items and start hot reload (default browser should open
 1. `dotnet sitecore ser push --publish`
 1. `$env:SITECORE__INSTANCEURI="http://example-127-0-0-1.nip.io"` (powershell) or `export SITECORE__INSTANCEURI=http://example-127-0-0-1.nip.io` (bash) to configure the rendering host to use the new instance url.
 1. `dotnet watch --project ./src/ExampleApp.RenderingHost/`
+
+## Tips and tricks
+
+- Stop and remove instance: `dotnet sitecore instance stop -n 'example'`
+- List all instances: `dotnet sitecore instance list`
+- Tail Sitecore log from instance: `docker logs --follow --tail 100 sc_example`
