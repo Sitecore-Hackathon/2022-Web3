@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web3.Operator.Cli.Clients;
 using Web3.Operator.Cli.Commands;
+using Web3.Operator.Cli.Models;
 
 namespace Web3.Operator.Cli.Tasks
 {

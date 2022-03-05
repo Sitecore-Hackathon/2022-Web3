@@ -55,14 +55,23 @@ namespace Web3.Operator.Engines.DockerEngine
             return result;
         }
 
-        public async Task<string> StartInstance(InstanceOptions options)
+        public async Task<StartedResult> StartInstance(InstanceOptions options)
         {
             var instanceName = options.InstanceName ?? throw new ArgumentException("Instance name must be specified");
             var cleanName = System.Text.RegularExpressions.Regex.Replace(instanceName.ToLower(), "[^a-z0-9\\-_]", "");
             var name = _configuration.InstanceNamePattern.Replace("{0}", cleanName); ;
             var hostName = _configuration.HostNamePattern.Replace("{0}", cleanName);
+            var scheme = _configuration.HostNameTls ? "https://" : "http://";
+            var url = scheme + hostName;
 
             await EnsureImage();
+
+            var existingId = GetInstanceId(options);
+            if(existingId != null)
+            {
+                return new StartedResult(url, "AlreadyRunning");
+            }
+
             var result = await _client.Containers.CreateContainerAsync(new CreateContainerParameters
             {
                 Image = _configuration.InstanceImage,
@@ -90,8 +99,7 @@ namespace Web3.Operator.Engines.DockerEngine
             var id = result.ID;
             await _client.Containers.StartContainerAsync(id, new ContainerStartParameters());
 
-            var scheme = _configuration.HostNameTls ? "https://" : "http://";
-            return scheme + hostName;
+            return new StartedResult(url, "Created");
         }
 
         public async Task StopInstance(InstanceOptions options)

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Sitecore.DevEx.Client.Logging;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Web3.Operator.Cli.Clients;
 using Web3.Operator.Cli.Commands;
@@ -23,10 +22,10 @@ namespace Web3.Operator.Cli.Tasks
             args.Validate();
 
             _logger.LogConsoleInformation("Starting instance...");
-            var url = await _client.StartNewInstance(args.InstanceName, args.SitecoreAdminPassword);
-            if(url != null)
+            var result = await _client.StartNewInstance(args.InstanceName, args.SitecoreAdminPassword);
+            if(result != null)
             {
-                _logger.LogConsoleInformation($"Created {url}", System.ConsoleColor.Green);
+                _logger.LogConsoleInformation($"{result.State} {result.Url}", System.ConsoleColor.Green);
             }
         }
     }

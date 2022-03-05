@@ -1,12 +1,10 @@
-﻿using Docker.DotNet;
-using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Web3.Operator.Engines.DockerEngine
 {
     public class DockerEngineConfiguration
     {
-        public string Url { get; set; }
+        public string? Url { get; set; }
     }
 
     public static class ServicesRegistration

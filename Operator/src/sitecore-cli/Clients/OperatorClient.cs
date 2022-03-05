@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Sitecore.DevEx.Client.Logging;
+using Sitecore.DevEx.Client.Tasks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Web3.Operator.Cli.Models;
 using Web3.Operator.Cli.Services;
 
 namespace Web3.Operator.Cli.Clients
@@ -15,19 +17,9 @@ namespace Web3.Operator.Cli.Clients
     public interface IOperatorClient
     {
         Task<ICollection<InstanceDetails>> List();
-        Task<string> StartNewInstance(string instanceName, string sitecoreAdminPassword);
+        Task<StartedResult> StartNewInstance(string instanceName, string sitecoreAdminPassword);
         Task StopInstance(string instanceName);
         IAsyncEnumerable<string> Logs(string instanceName, CancellationToken token);
-    }
-
-    public class InstanceDetails
-    {
-        public string InstanceName { get; set; }
-        public string HostName { get; set; }
-        public string Url { get; set; }
-        public string ImageName { get; set; }
-        public string State { get; set; }
-        public string Status { get; set; }
     }
 
     internal class OperatorClient : IOperatorClient
@@ -36,23 +28,26 @@ namespace Web3.Operator.Cli.Clients
         {
             _baseUrl = userConfigService.GetOperatorBaseUrl();
             if (string.IsNullOrWhiteSpace(_baseUrl))
-                throw new Exception("You should learn to call init first. RTFM.");
+            {
+                throw new TaskValidationException("You should learn to call init first. RTFM.");
+            }
 
             _logger = logger;
         }
 
         public readonly string _baseUrl;
-        private ILogger<OperatorClient> _logger;
+        private readonly ILogger<OperatorClient> _logger;
 
         private HttpClient Init()
         {
+            _logger.LogConsoleInformation($"Using {_baseUrl}");
             var client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
             _logger.LogConsoleInformation($"using {_baseUrl} as operator!");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
             return client;
         }
 
-        public async Task<string> StartNewInstance(string instanceName, string sitecoreAdminPassword)
+        public async Task<StartedResult> StartNewInstance(string instanceName, string sitecoreAdminPassword)
         {
             var uri = "/start" +
                 $"?instanceName={HttpUtility.UrlEncode(instanceName)}" +
@@ -66,8 +61,9 @@ namespace Web3.Operator.Cli.Clients
                 return null;
             }
 
-            var url = await response.Content.ReadAsStringAsync();
-            return url;
+            var str = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<StartedResult>(str);
+            return result;
         }
 
         public async Task StopInstance(string instanceName)
