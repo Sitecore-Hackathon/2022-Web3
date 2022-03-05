@@ -22,6 +22,9 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
 
+    - name: DEBUG
+      run: ls -l
+
     - name: Restore
       run: dotnet restore ./Operator/src/Web3-Operator.sln
 
