@@ -15,8 +15,9 @@ Clone and install Sitecore CLI:
 
 Then to configure a operator and start new instance:
 
-1. `dotnet sitecore instance init --url 'http://<OPERATOR_URL>'` TODO: add local url
+1. `dotnet sitecore instance init --url 'http://localhost:80'` TODO: add local url
 1. `dotnet sitecore instance start -n 'winner' --pwd 'b'`
+1. `$env:SITECORE__INSTANCEURI="ZZZZ"` (powershell) or `export SITECORE__INSTANCEURI=ZZZ` (bash)
 1. TODO: update ZZZ with instance url
 
 Login to instance (notice the `--cm` and `--auth` urls are the same):

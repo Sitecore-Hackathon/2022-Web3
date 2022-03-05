@@ -47,12 +47,14 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 
 - Windows 10 / 11
 - Some Docker engine, for example [Docker Desktop](https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe)
-- Visual Studio 2022 and .NET 6.0 SDK
+- Visual Studio 2022 .NET 6.0 SDK
 
 ## Installation instructions
 
-1. Make sure you have placed a valid Sitecore license file at `.\glitterfish\docker\build\cm\license.xml`.
-1. Run `.\Build.ps1`.
+1. Make sure you have placed a valid Sitecore license file at `.\glitterfish\docker\build\cm\license.xml`
+1. Make sure you don't have anything else running on `localhost:80`
+1. Run `.\Build.ps1` (builds the cm, operator and plugin)
+1. Run `.\Start.ps1` (starts the operator)
 
 ## Usage instructions
 
