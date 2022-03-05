@@ -1,30 +1,24 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Serialization;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Web3.Operator.Cli.Services
 {
+    public class UserConfigRecord
+    {
+        public string OperatorBaseUrl { get; set; }
+    }
+
     public class UserConfigService : IUserConfigService
     {
-        private readonly string _sitecoreUserFile = @"\.sitecore\user.json";
+        private readonly string _sitecoreUserFile = @"\.sitecore\web3.json.user";
 
         public string GetOperatorBaseUrl()
         {
             try
             {
-                var root = JObject.Parse(GetConfig());
-                if (root == null)
-                    return string.Empty;
-
-                var web3 = root.Children<JProperty>().FirstOrDefault(x => x.Name == "web3");
-                if (web3 == null)
-                    return string.Empty;
-
-                var inner = web3.Children<JObject>().FirstOrDefault();
-                var operatorBaseUrl = inner.Children<JProperty>().FirstOrDefault(x => x.Name == "operatorBaseUrl");
-               
-                return (string)operatorBaseUrl.Value;
+                var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UserConfigRecord>(GetConfig());
+                return obj?.OperatorBaseUrl;
             }
             catch
             {
@@ -34,37 +28,37 @@ namespace Web3.Operator.Cli.Services
 
         public async Task UpdateOperatorBaseUrl(string value)
         {
-            var root = JObject.Parse(GetConfig());
-            var web3 = root.Children<JProperty>().FirstOrDefault(x => x.Name == "web3");
-
-            if (web3 != null)
+            var obj = new UserConfigRecord
             {
-                root.Remove("web3");
-            }
-
-            JProperty prop = new JProperty("web3");
-            JObject config = new JObject();
-            JProperty operatorBaseUrl = new JProperty("operatorBaseUrl", value);
-            config.Add(operatorBaseUrl);
-            prop.Value = config;
-            root.Add(prop);
-
-            await SaveConfig(root.ToString());
+                OperatorBaseUrl = value
+            };
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented, new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                }
+            });
+            await SaveConfig(json);
         }
 
         private string GetConfig()
         {
+            const string defaultValue = "{}";
             string path = Directory.GetCurrentDirectory() + _sitecoreUserFile;
             try
             {
-                using (var reader = new StreamReader(path))
+                if (!File.Exists(path))
                 {
-                    return reader.ReadToEnd();
+                    return defaultValue;
                 }
+
+                using var reader = new StreamReader(path);
+                return reader.ReadToEnd();
             }
             catch
             {
-                return string.Empty;
+                return defaultValue;
             }
         }
 
@@ -73,10 +67,8 @@ namespace Web3.Operator.Cli.Services
             string path = Directory.GetCurrentDirectory() + _sitecoreUserFile;
             try
             {
-                using (var writer = new StreamWriter(path))
-                {
-                    await writer.WriteAsync(value);
-                }
+                using var writer = new StreamWriter(path);
+                await writer.WriteAsync(value);
             }
             catch
             {
