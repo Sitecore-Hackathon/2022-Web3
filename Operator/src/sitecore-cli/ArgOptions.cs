@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.CommandLine;
 using System.Text;
 
-namespace DadJokeCli
+namespace Web3.Operator.Cli
 {
     internal static class ArgOptions
     {

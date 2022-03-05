@@ -1,6 +1,6 @@
 ﻿using Sitecore.DevEx.Client.Tasks;
 
-namespace DadJokeCli.Commands
+namespace Web3.Operator.Cli
 {
     public class TellAJokeArgs : TaskOptionsBase
     {

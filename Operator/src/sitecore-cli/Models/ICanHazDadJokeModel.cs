@@ -1,7 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 
-namespace DadJokeCli.Models.ICanHazDadJokeProvider
+namespace Web3.Operator.Cli.Models
 {
     /// <summary>
     /// Represents a dad joke.

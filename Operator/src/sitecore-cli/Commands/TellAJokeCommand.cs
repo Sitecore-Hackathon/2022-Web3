@@ -1,9 +1,8 @@
-﻿using DadJokeCli.Tasks;
-using Sitecore.Devex.Client.Cli.Extensibility.Subcommands;
+﻿using Sitecore.Devex.Client.Cli.Extensibility.Subcommands;
 using System;
 using System.Threading.Tasks;
 
-namespace DadJokeCli.Commands
+namespace Web3.Operator.Cli
 {
     public class TellAJokeCommand : SubcommandBase<TellAJokeTask, TellAJokeArgs>
     {

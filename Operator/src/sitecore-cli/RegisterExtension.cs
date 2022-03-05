@@ -1,6 +1,4 @@
-﻿using DadJokeCli.Commands;
-using DadJokeCli.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sitecore.Devex.Client.Cli.Extensibility;
@@ -8,7 +6,7 @@ using Sitecore.Devex.Client.Cli.Extensibility.Subcommands;
 using System;
 using System.Collections.Generic;
 
-namespace DadJokeCli
+namespace Web3.Operator.Cli
 {
     public class RegisterExtension : ISitecoreCliExtension
     {

@@ -1,7 +1,7 @@
 ﻿using Sitecore.Devex.Client.Cli.Extensibility.Subcommands;
 using System.CommandLine;
 
-namespace DadJokeCli.Commands
+namespace Web3.Operator.Cli
 {
     internal class JokesCommand : Command, ISubcommand
     {

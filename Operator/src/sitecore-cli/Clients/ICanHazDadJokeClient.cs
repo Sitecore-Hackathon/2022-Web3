@@ -2,10 +2,10 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DadJokeCli.Models.ICanHazDadJokeProvider;
 using Newtonsoft.Json;
+using Web3.Operator.Cli.Models;
 
-namespace DadJokeCli.Clients.ICanHazDadJokeProvider
+namespace Web3.Operator.Cli
 {
     public class ICanHazDadJokeClient
     {
