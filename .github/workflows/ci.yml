@@ -22,14 +22,11 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
 
-    - name: DEBUG
-      run: ls -l
-
     - name: Restore
-      run: dotnet restore ./Operator/src/Web3-Operator.sln
+      run: dotnet restore ./Operator/Web3-Operator.sln
 
     - name: Build
-      run: dotnet build ./Operator/src/Web3-Operator.sln --configuration Release --no-restore
+      run: dotnet build ./Operator/Web3-Operator.sln --configuration Release --no-restore
 
     - name: Push generated package to GitHub registry
       run: dotnet nuget push ./Operator/src/sitecre-cli/nupkg/*.nupkg --skip-duplicate --no-symbols true
