@@ -31,5 +31,5 @@ Now you can push example items and start hot reload (default browser should open
 ## Tips and tricks
 
 - Tail Sitecore logs from instance: `dotnet sitecore instance logs -n 'example'`
-- Stop and remove instance: `dotnet sitecore instance stop -n 'example'`
 - List all instances: `dotnet sitecore instance list`
+- Stop and remove instance: `dotnet sitecore instance stop -n 'example'`
