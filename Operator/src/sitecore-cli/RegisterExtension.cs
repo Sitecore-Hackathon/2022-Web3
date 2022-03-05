@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Web3.Operator.Cli.Clients;
 using Web3.Operator.Cli.Commands;
+using Web3.Operator.Cli.Services;
 using Web3.Operator.Cli.Tasks;
 
 namespace Web3.Operator.Cli
@@ -19,6 +20,7 @@ namespace Web3.Operator.Cli
             jokeCommand.AddCommand(container.GetRequiredService<TellAJokeCommand>());
 
             var instanceCommand = new InstanceCommand("instance", "Manage temporary single container Sitecore instance");
+            instanceCommand.AddCommand(container.GetRequiredService<InitInstanceCommand>());
             instanceCommand.AddCommand(container.GetRequiredService<StartInstanceCommand>());
             instanceCommand.AddCommand(container.GetRequiredService<StopInstanceCommand>());
             instanceCommand.AddCommand(container.GetRequiredService<LogsCommand>());
@@ -45,20 +47,22 @@ namespace Web3.Operator.Cli
             serviceCollection
                 .AddSingleton<CorporateBsGeneratorClient>()
                 .AddSingleton<ICanHazDadJokeClient>()
-                .AddSingleton<IOperatorClient, OperatorClient>()
                 .AddSingleton<TellAJokeCommand>()
                 .AddSingleton<SteveSaysCommand>()
+                .AddSingleton<InitInstanceCommand>()
                 .AddSingleton<StartInstanceCommand>()
                 .AddSingleton<StopInstanceCommand>()
                 .AddSingleton<LogsCommand>()
                 .AddSingleton<ListInstancesCommand>()
+                .AddSingleton<IUserConfigService, UserConfigService>()
+                .AddSingleton<IOperatorClient, OperatorClient>()
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<TellAJokeTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<SteveSaysTask>())
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<InitInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StartInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StopInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<LogsTask>())
-                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>())
-                ;
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>());
         }
     }
 }

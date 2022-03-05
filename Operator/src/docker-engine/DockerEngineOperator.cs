@@ -8,16 +8,14 @@ namespace Web3.Operator.Engines.DockerEngine
 {
     public class DockerEngineOperator : IOperatorEngine
     {
-        private const string OperatorNameLabel = "sitecoreoperator.name";
-        private const string OperatorUserLabel = "sitecoreoperator.user";
-
         private readonly OperatorConfiguration _configuration;
         private readonly DockerClient _client;
 
-        public DockerEngineOperator(OperatorConfiguration configuration, DockerClientConfiguration clientConfiguration)
+        public DockerEngineOperator(OperatorConfiguration configuration, DockerEngineConfiguration engineConfig)
         {
             _configuration = configuration;
-            _client = clientConfiguration.CreateClient();
+            var clientConfig = new DockerClientConfiguration(new Uri(engineConfig.Url));
+            _client = clientConfig.CreateClient();
         }
 
         public async Task<ICollection<InstanceDetails>> List()
@@ -30,7 +28,7 @@ namespace Web3.Operator.Engines.DockerEngine
                         "label",
                         new Dictionary<string, bool>
                         {
-                            {   OperatorNameLabel, true }
+                            {  _configuration.OperatorNameLabel, true }
                         }
                     }
                 }
@@ -38,7 +36,7 @@ namespace Web3.Operator.Engines.DockerEngine
 
             var result = response.Select(c =>
             {
-                string? instanceName = c.Labels.TryGetValue(OperatorNameLabel, out var value) ? value : string.Empty;
+                string? instanceName = c.Labels.TryGetValue(_configuration.OperatorNameLabel, out var value) ? value : string.Empty;
 
                 var name = c.Names.First().TrimStart('/');
                 var rule = c.Labels.TryGetValue($"traefik.http.routers.{name}.rule", out value) ? value : string.Empty;
@@ -71,8 +69,8 @@ namespace Web3.Operator.Engines.DockerEngine
                 Name = name,
                 Labels = new Dictionary<string, string>
                 {
-                    { OperatorNameLabel, options.InstanceName },
-                    { OperatorUserLabel, options.User ?? string.Empty },
+                    { _configuration.OperatorNameLabel, options.InstanceName },
+                    { _configuration.OperatorUserLabel, options.User ?? string.Empty },
                     { "traefik.enable", "true" },
                     { $"traefik.http.routers.{name}.entrypoints", _configuration.TraefikEntrypoint },
                     { $"traefik.http.routers.{name}.tls", $"{_configuration.HostNameTls.ToString().ToLower()}" },
@@ -160,7 +158,7 @@ namespace Web3.Operator.Engines.DockerEngine
                         "label",
                         new Dictionary<string, bool>
                         {
-                            {   $"{OperatorNameLabel}={options.InstanceName}", true }
+                            {   $"{_configuration.OperatorNameLabel}={options.InstanceName}", true }
                         }
                     }
                 }

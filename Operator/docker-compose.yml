@@ -11,6 +11,7 @@ services:
       ENGINE_URL: npipe://./pipe/docker_engine
       Operator__HostNamePattern: '{0}-127-0-0-1.nip.io'
       Operator__InstanceImage: sitecore-glitterfish-cm:latest
+      Operator__DefaultMemoryMb: 1500
     volumes:
     - type: npipe
       source: \\.\pipe\docker_engine

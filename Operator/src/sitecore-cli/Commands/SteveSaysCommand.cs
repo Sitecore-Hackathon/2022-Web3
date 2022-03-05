@@ -7,7 +7,7 @@ namespace Web3.Operator.Cli.Commands
 {
     public class SteveSaysCommand : SubcommandBase<SteveSaysTask, SteveSaysArgs>
     {
-        public SteveSaysCommand(IServiceProvider container) : base("says", "Get informed on Sitecore's roadmap ny the CEO", container)
+        public SteveSaysCommand(IServiceProvider container) : base("says", "Get informed on Sitecore's roadmap by the CEO", container)
         {
             AddAlias("keynote");
         }
