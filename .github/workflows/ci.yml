@@ -28,4 +28,4 @@ jobs:
     - name: Push plugin nuget
       run: |
         dotnet nuget add source --username pbering --password ${{ secrets.PBERING_PACKAGE_PUSH_PAT }} --store-password-in-clear-text --name 'github' "https://nuget.pkg.github.com/pbering/index.json"
-        dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --source 'github' --skip-duplicate --no-symbols true
+        dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --source 'github' --skip-duplicate --no-symbols true --api-key ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
