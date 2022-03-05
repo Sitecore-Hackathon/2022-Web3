@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        source-url: https://nuget.pkg.github.com/pbering/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.PBERING_PACKAGE_PUSH_PAT}}
+
+    - name: Restore
+      run: dotnet restore ./operator/src/Web3-Operator.sln
+
+    - name: Build
+      run: dotnet build ./operator/src/Web3-Operator.sln --configuration Release --no-restore
+
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push ./operator/src/sitecre-cli/nupkg/*.nupkg --skip-duplicate --no-symbols true
