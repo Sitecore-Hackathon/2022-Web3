@@ -9,6 +9,7 @@ namespace Web3.Operator.Cli.Commands
     {
         public SteveSaysCommand(IServiceProvider container) : base("says", "Get informed on Sitecore's roadmap ny the CEO", container)
         {
+            AddAlias("keynote");
         }
 
         protected override async Task<int> Handle(SteveSaysTask task, SteveSaysArgs args)
