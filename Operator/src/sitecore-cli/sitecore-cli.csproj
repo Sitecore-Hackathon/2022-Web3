@@ -6,7 +6,7 @@
         <RootNamespace>Web3.Operator.Cli</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyName>Web3.Operator.Cli</AssemblyName>
-        <PackageOutputPath>..\..\..\nuget</PackageOutputPath>
+        <PackageOutputPath>..\..\..\examples\rendering-host\nuget</PackageOutputPath>
     </PropertyGroup>
     <ItemGroup>
       <None Remove=".gitignore" />
