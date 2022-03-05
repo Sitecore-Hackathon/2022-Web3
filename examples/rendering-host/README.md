@@ -9,7 +9,7 @@ Basic ASP.NET Core project with the [Sitecore ASP.NET Rendering SDK](https://doc
 
 ## Run and develop
 
-Clone and install Sitecore CLI:
+First make sure you switch current directory to this folder.
 
 1. `dotnet tool restore`
 
