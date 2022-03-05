@@ -40,7 +40,6 @@ namespace Web3.Operator.Cli.Clients
 
         private HttpClient Init()
         {
-            _logger.LogConsoleInformation($"Using {_baseUrl}");
             var client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
             _logger.LogConsoleInformation($"using {_baseUrl} as operator!");
             client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
