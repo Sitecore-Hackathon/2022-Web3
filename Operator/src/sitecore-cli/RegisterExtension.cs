@@ -5,6 +5,8 @@ using Sitecore.Devex.Client.Cli.Extensibility;
 using Sitecore.Devex.Client.Cli.Extensibility.Subcommands;
 using System;
 using System.Collections.Generic;
+using Web3.Operator.Cli.Commands;
+using Web3.Operator.Cli.Tasks;
 
 namespace Web3.Operator.Cli
 {
@@ -12,13 +14,22 @@ namespace Web3.Operator.Cli
     {
         public IEnumerable<ISubcommand> AddCommands(IServiceProvider container)
         {
-            var jokesCommand = new JokesCommand("jokes", "Has all the funny aspects of a joker");
+            var jokeCommand = new JokeCommand("joke", "Your best friend while waiting for Sitecore to start");
+            jokeCommand.AddCommand(container.GetRequiredService<TellAJokeCommand>());
 
-            jokesCommand.AddCommand(container.GetRequiredService<TellAJokeCommand>());
+            var instanceCommand = new InstanceCommand("instance", "Manage temporary single container Sitecore instance");
+            instanceCommand.AddCommand(container.GetRequiredService<StartInstanceCommand>());
+            instanceCommand.AddCommand(container.GetRequiredService<StopInstanceCommand>());
+            instanceCommand.AddCommand(container.GetRequiredService<ListInstancesCommand>());
 
-            return new[]
+            var steveCommand = new JokeCommand("steve", "A word from the CEO");
+            steveCommand.AddCommand(container.GetRequiredService<SteveSaysCommand>());
+
+            return new ISubcommand[]
             {
-                jokesCommand
+                jokeCommand,
+                instanceCommand,
+                steveCommand
             };
         }
         
@@ -30,8 +41,16 @@ namespace Web3.Operator.Cli
         {
 
             serviceCollection
+                .AddSingleton<TellAJokeCommand>()
+                .AddSingleton<SteveSaysCommand>()
+                .AddSingleton<StartInstanceCommand>()
+                .AddSingleton<StopInstanceCommand>()
+                .AddSingleton<ListInstancesCommand>()
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<TellAJokeTask>())
-                .AddSingleton<TellAJokeCommand>();
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<SteveSaysTask>())
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StartInstanceTask>())
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StopInstanceTask>())
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>());
         }
     }
 }
