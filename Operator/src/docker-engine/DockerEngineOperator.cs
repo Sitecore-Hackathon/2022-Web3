@@ -140,7 +140,7 @@ namespace Web3.Operator.Engines.DockerEngine
                     var result = await stream.ReadOutputAsync(buffer, 0, buffer.Length, token);
                     if (result.EOF) { yield break; }
                     await outputStream.WriteAsync(new ReadOnlyMemory<byte>(buffer, 0, result.Count), token);
-                    await outputStream.FlushAsync();
+                    await outputStream.FlushAsync(token);
                 }
             }
 
