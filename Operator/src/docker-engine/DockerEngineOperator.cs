@@ -1,6 +1,7 @@
 ﻿using Core;
 using Docker.DotNet;
 using Docker.DotNet.Models;
+using System.IO.Pipelines;
 using Web3.Operator.Engines.Core;
 
 namespace Web3.Operator.Engines.DockerEngine
@@ -41,12 +42,12 @@ namespace Web3.Operator.Engines.DockerEngine
 
                 var name = c.Names.First().TrimStart('/');
                 var rule = c.Labels.TryGetValue($"traefik.http.routers.{name}.rule", out value) ? value : string.Empty;
-                var hostName = rule?.Length > 8 ? rule.Substring(6, rule.Length - 8) : string.Empty;
+                var hostName = rule?.Length > 8 ? rule[6..^2] : string.Empty;
                 return new InstanceDetails(
-                    instanceName, 
-                    hostName, 
-                    c.Image, 
-                    c.State, 
+                    instanceName,
+                    hostName,
+                    c.Image,
+                    c.State,
                     c.Status
                     );
             }).ToList();
@@ -107,6 +108,42 @@ namespace Web3.Operator.Engines.DockerEngine
                 });
             });
             await Task.WhenAll(tasks);
+        }
+
+        public async Task<IAsyncEnumerable<byte>> InstanceLogs(InstanceOptions options, PipeWriter outputStream, CancellationToken token)
+        {
+            var id = (await GetInstanceId(options))?.FirstOrDefault();
+
+            var stream = string.IsNullOrEmpty(id) ? null : await _client.Containers.GetContainerLogsAsync(id, true, new ContainerLogsParameters
+            {
+                Follow = true,
+                ShowStderr = true,
+                ShowStdout = true
+            }, token);
+
+            async IAsyncEnumerable<byte> ReadLogs()
+            {
+                if (stream == null)
+                {
+                    yield break;
+                }
+
+                var msg = $"Here comes logs for instance {options.InstanceName} id {id}\n\n";
+                var bytes = System.Text.Encoding.UTF8.GetBytes(msg);
+                await outputStream.WriteAsync(new ReadOnlyMemory<byte>(bytes, 0, bytes.Length), token);
+
+
+                var buffer = new byte[4096];
+                while (!token.IsCancellationRequested)
+                {
+                    var result = await stream.ReadOutputAsync(buffer, 0, buffer.Length, token);
+                    if (result.EOF) { yield break; }
+                    await outputStream.WriteAsync(new ReadOnlyMemory<byte>(buffer, 0, result.Count), token);
+                    await outputStream.FlushAsync();
+                }
+            }
+
+            return ReadLogs();
         }
 
         private async Task<ICollection<string>> GetInstanceId(InstanceOptions options)

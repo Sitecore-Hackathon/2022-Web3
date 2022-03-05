@@ -20,12 +20,18 @@ namespace Web3.Operator.Api
                     memoryMB ?? 1024,
                     cpuCount ?? 2
                     ));
-            }).WithName("StartInstance");
+            }).WithName("InstanceStart");
 
             app.MapPost("/stop", (string instanceName, IOperatorEngine engine) =>
             {
                 return engine.StopInstance(new InstanceOptions(instanceName, string.Empty, null, 0, 0));
-            }).WithName("StopInstance");
+            }).WithName("InstanceStop");
+
+            app.MapGet("/logs/{instanceName}", async (string instanceName, HttpResponse response, CancellationToken token, IOperatorEngine engine) =>
+            {
+                var options = new InstanceOptions(instanceName, string.Empty, null, 0, 0);
+                return await engine.InstanceLogs(options, response.BodyWriter, token);
+            }).WithName("InstanceLogs");
 
             app.MapGet("/list", (IOperatorEngine engine) =>
             {
