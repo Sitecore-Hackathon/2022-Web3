@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
         <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,6 +8,9 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyName>Web3.Operator.Cli</AssemblyName>
     </PropertyGroup>
+    <ItemGroup>
+      <None Remove=".gitignore" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Sitecore.DevEx.Client.Cli" Version="4.1.1" />
