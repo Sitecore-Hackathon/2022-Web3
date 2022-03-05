@@ -30,6 +30,6 @@ jobs:
 
     - name: Push plugin nuget
       run: |
-        dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate --no-symbols true
+        dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate --no-symbols
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
