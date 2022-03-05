@@ -9,6 +9,11 @@
         <AssemblyName>Web3.Operator.Cli</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
+      <Compile Remove="nupkg\**" />
+      <EmbeddedResource Remove="nupkg\**" />
+      <None Remove="nupkg\**" />
+    </ItemGroup>
+    <ItemGroup>
       <None Remove=".gitignore" />
     </ItemGroup>
 
