@@ -13,11 +13,10 @@ Clone and install Sitecore CLI:
 
 1. `dotnet tool restore`
 
-Then to configure a operator and start new instance:
+Then to configure a operator endpoint and start new instance:
 
-1. `dotnet sitecore instance init --url http://operator-127-0-0-1.nip.io` TODO: add local url
-1. `dotnet sitecore instance start -n 'example' --pwd 'b'`
-1. `$env:SITECORE__INSTANCEURI="http://example-127-0-0-1.nip.io"` (powershell) or `export SITECORE__INSTANCEURI=http://example-127-0-0-1.nip.io` (bash)
+1. `dotnet sitecore instance init --url http://operator-127-0-0-1.nip.io`
+1. `dotnet sitecore instance start -n 'example' --pwd 'b'`, returns the url of your new instance.
 
 Login to instance (notice the `--cm` and `--auth` urls are the same):
 
@@ -26,4 +25,5 @@ Login to instance (notice the `--cm` and `--auth` urls are the same):
 Now you can push example items and start hot reload (default browser should open [http://localhost:5000](http://localhost:5000)):
 
 1. `dotnet sitecore ser push --publish`
+1. `$env:SITECORE__INSTANCEURI="http://example-127-0-0-1.nip.io"` (powershell) or `export SITECORE__INSTANCEURI=http://example-127-0-0-1.nip.io` (bash) to configure the rendering host to the new instance url.
 1. `dotnet watch --project ./src/ExampleApp.RenderingHost/`
