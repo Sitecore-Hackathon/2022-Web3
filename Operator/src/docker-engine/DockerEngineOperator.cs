@@ -89,7 +89,8 @@ namespace Web3.Operator.Engines.DockerEngine
             var id = result.ID;
             await _client.Containers.StartContainerAsync(id, new ContainerStartParameters());
 
-            return hostName;
+            var scheme = _configuration.HostNameTls ? "https://" : "http://";
+            return scheme + hostName;
         }
 
         public async Task StopInstance(InstanceOptions options)
