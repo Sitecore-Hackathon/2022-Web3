@@ -22,6 +22,7 @@ namespace Web3.Operator.Cli
             var instanceCommand = new InstanceCommand("instance", "Manage temporary single container Sitecore instance");
             instanceCommand.AddCommand(container.GetRequiredService<StartInstanceCommand>());
             instanceCommand.AddCommand(container.GetRequiredService<StopInstanceCommand>());
+            instanceCommand.AddCommand(container.GetRequiredService<LogsCommand>());
             instanceCommand.AddCommand(container.GetRequiredService<ListInstancesCommand>());
 
             var steveCommand = new JokeCommand("steve", "A word from the CEO");
@@ -42,7 +43,6 @@ namespace Web3.Operator.Cli
 
         public void AddServices(IServiceCollection serviceCollection)
         {
-
             serviceCollection
                 .AddSingleton<CorporateBsGeneratorClient>()
                 .AddSingleton<ICanHazDadJokeClient>()
@@ -50,11 +50,13 @@ namespace Web3.Operator.Cli
                 .AddSingleton<SteveSaysCommand>()
                 .AddSingleton<StartInstanceCommand>()
                 .AddSingleton<StopInstanceCommand>()
+                .AddSingleton<LogsCommand>()
                 .AddSingleton<ListInstancesCommand>()
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<TellAJokeTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<SteveSaysTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StartInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StopInstanceTask>())
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<LogsTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>())
                 .AddTransient<IUserConfigService, UserConfigService>()
                 .AddTransient<IOperatorClient, OperatorClient>();

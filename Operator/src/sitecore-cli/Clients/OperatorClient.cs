@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,15 +11,25 @@ namespace Web3.Operator.Cli.Clients
 {
     public interface IOperatorClient
     {
+        Task<ICollection<InstanceDetails>> List();
         Task<string> StartNewInstance(string instanceName, string sitecoreAdminPassword);
         Task StopInstance(string instanceName);
-
         IAsyncEnumerable<string> Logs(string instanceName, CancellationToken token);
+    }
+
+    public class InstanceDetails
+    {
+        public string InstanceName { get; set; }
+        public string HostName { get; set; }
+        public string Url { get; set; }
+        public string ImageName { get; set; }
+        public string State { get; set; }
+        public string Status { get; set; }
     }
 
     internal class OperatorClient : IOperatorClient
     {
-        public const string BaseUrl = "http://operator-127-0-0-1.nip.io/";
+        public const string BaseUrl = "http://operator-127-0-0-1.nip.io";
 
         private HttpClient Init()
         {
@@ -36,7 +46,7 @@ namespace Web3.Operator.Cli.Clients
                 $"&sitecoreAdminPassword={HttpUtility.UrlEncode(sitecoreAdminPassword)}" +
                 $"&user={HttpUtility.UrlEncode(Environment.UserName)}";
             using var client = Init();
-            using var response = await client.PostAsJsonAsync(uri, new { });
+            using var response = await client.PostAsync(uri, new StringContent(string.Empty));
             var url = await response.Content.ReadAsStringAsync();
             return url;
         }
@@ -45,7 +55,17 @@ namespace Web3.Operator.Cli.Clients
         {
             var uri = $"/stop/?instanceName={HttpUtility.UrlEncode(instanceName)}";
             using var client = Init();
-            using var response = await client.PostAsJsonAsync(uri, new { });
+            using var response = await client.PostAsync(uri, new StringContent(string.Empty));
+        }
+
+        public async Task<ICollection<InstanceDetails>> List()
+        {
+            var uri = "/list";
+            using var client = Init();
+            using var response = await client.GetAsync(uri);
+            var str = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<ICollection<InstanceDetails>>(str);
+            return result;
         }
 
         public IAsyncEnumerable<string> Logs(string instanceName, CancellationToken token)
@@ -55,10 +75,10 @@ namespace Web3.Operator.Cli.Clients
             async IAsyncEnumerable<string> Read()
             {
                 using var client = Init();
-                using var response = await client.GetAsync(uri, token);
+                using var response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token);
                 using var body = await response.Content.ReadAsStreamAsync();
                 using var reader = new StreamReader(body);
-                while (!reader.EndOfStream)
+                while (!reader.EndOfStream && !token.IsCancellationRequested)
                 {
                     yield return reader.ReadLine();
                 }

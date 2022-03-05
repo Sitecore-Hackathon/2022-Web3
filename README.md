@@ -33,7 +33,7 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 
 1. Sitecore CLI plugin that talks http with an operator.
 1. Operator REST API that schedules containers on a Windows host.
-1. Preconfigured lightweight Sitecore 10.2.0 XM CM, single container with embedded SQL Server 2019 Express.
+1. Preconfigured lightweight Sitecore 10.2.0 XM CM, single container with embedded SQL Server 2019 Express and custom pipelines to support the Sitecore CLI authentication.
 
 ## Video link
 
