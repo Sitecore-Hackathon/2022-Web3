@@ -70,4 +70,7 @@ As an extra benefit and in the spirit of Hackathon and Community fun the CLI has
 
 1. `dotnet sitecore joke tell [--sj / --sitecore-joke]` : get a random dad joke displayed pulled from an external and free dad joke service or specify the option to get a curated Sitecore joke instead.
 1. `dotnet sitecore steve says` : get insights related to Sitecore's upcoming roadmap based on input from an external content service.
-1. you can use aliases such as blockchain, nft and wallet - we are a real web 3.0 team!
+1. you can use aliases such as `blockchain`, `nft` and `wallet` - we are a real web 3.0 team!
+
+
+![Jokes CLI](./docs/images/jokes.png)
