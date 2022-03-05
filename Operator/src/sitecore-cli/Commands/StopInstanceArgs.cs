@@ -2,11 +2,13 @@
 
 namespace Web3.Operator.Cli.Commands
 {
-    public class TellAJokeArgs : TaskOptionsBase
+    public class StopInstanceArgs : TaskOptionsBase
     {
-        public bool SitecoreJoke { get; set; }
+        public string InstanceName { get; set; }
+
         public override void Validate()
         {
+            Require(nameof(InstanceName));
         }
     }
 }

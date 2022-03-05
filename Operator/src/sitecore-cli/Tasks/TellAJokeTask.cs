@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web3.Operator.Cli.Commands;
 
-namespace Web3.Operator.Cli
+namespace Web3.Operator.Cli.Tasks
 {
     public class TellAJokeTask
     {

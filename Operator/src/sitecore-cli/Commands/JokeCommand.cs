@@ -3,9 +3,9 @@ using System.CommandLine;
 
 namespace Web3.Operator.Cli
 {
-    internal class JokesCommand : Command, ISubcommand
+    internal class JokeCommand : Command, ISubcommand
     {
-        public JokesCommand(string name, string description = null) : base(name, description)
+        public JokeCommand(string name, string description = null) : base(name, description)
         {
         }
     }

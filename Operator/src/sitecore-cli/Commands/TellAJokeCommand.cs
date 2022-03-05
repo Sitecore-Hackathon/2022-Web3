@@ -1,6 +1,8 @@
 ﻿using Sitecore.Devex.Client.Cli.Extensibility.Subcommands;
 using System;
 using System.Threading.Tasks;
+using Web3.Operator.Cli.Commands;
+using Web3.Operator.Cli.Tasks;
 
 namespace Web3.Operator.Cli
 {
