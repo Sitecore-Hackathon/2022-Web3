@@ -29,4 +29,4 @@ jobs:
       run: dotnet build ./Operator/src/sitecore-cli/sitecore-cli.csproj --configuration Release --no-restore
 
     - name: Push plugin nuget
-      run: dotnet nuget push ./Operator/src/sitecre-cli/nupkg/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./Operator/src/sitecore-cli/nupkg/*.nupkg --skip-duplicate --no-symbols true
