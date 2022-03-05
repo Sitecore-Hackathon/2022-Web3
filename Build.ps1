@@ -2,15 +2,10 @@
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
-if ($null -eq (Get-Command "docker-compose" -ErrorAction "SilentlyContinue"))
-{
-    throw "docker-compose.exe was not found."
-}
-
 # build glitterfish cm image
 $glitterfishPath = (Join-Path $PSScriptRoot "\glitterfish")
 
-Write-Host "### Building '$glitterfishPath'..."
+Write-Host "### Building using working directory '$glitterfishPath'..."
 
 Push-Location -Path $glitterfishPath
 
