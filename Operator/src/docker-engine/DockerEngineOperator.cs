@@ -79,11 +79,11 @@ namespace Web3.Operator.Engines.DockerEngine
                 {
                     $"SITECORE_ADMIN_PASSWORD={options.SitecoreAdminPassword}",
                 },
-                //HostConfig = new HostConfig
-                //{
-                //    Memory = Convert.ToInt64(options.MemoryMB) * 1024^2,
-                //    CPUCount = options.CPUCount,
-                //}
+                HostConfig = new HostConfig
+                {
+                    Memory = Convert.ToInt64(options.MemoryMB) * 1024 * 1024,
+                    CPUCount = options.CPUCount,
+                }
             });
             var id = result.ID;
             await _client.Containers.StartContainerAsync(id, new ContainerStartParameters());
