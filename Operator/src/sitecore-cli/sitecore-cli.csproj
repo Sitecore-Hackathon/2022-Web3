@@ -8,6 +8,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <AssemblyName>Web3.Operator.Cli</AssemblyName>
         <RepositoryUrl>https://github.com/Sitecore-Hackathon/2022-Web3</RepositoryUrl>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
     <ItemGroup>
       <Compile Remove="nupkg\**" />
