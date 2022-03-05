@@ -54,7 +54,8 @@ namespace Web3.Operator.Cli
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<SteveSaysTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StartInstanceTask>())
                 .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<StopInstanceTask>())
-                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>());
+                .AddSingleton(sp => sp.GetService<ILoggerFactory>().CreateLogger<ListInstancesTask>())
+                .AddTransient<Clients.IOperatorClient, Clients.OperatorClient>();
         }
     }
 }

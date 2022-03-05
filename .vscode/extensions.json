@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "hediet.vscode-drawio",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "ms-vscode.powershell"
     ]
 }
