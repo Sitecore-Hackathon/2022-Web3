@@ -1,0 +1,43 @@
+﻿---
+ID: "27c17540-cc74-4ec0-a80b-3a3464c13938"
+Parent: "b69f0620-8f79-44c5-8fc9-fb39c1f9d0b3"
+Template: "b69f0620-8f79-44c5-8fc9-fb39c1f9d0b3"
+Path: /sitecore/templates/Project/ExampleApp/Content Block/__Standard Values
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Office/32x32/text.png
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Value: |
+    {76036F5E-CBCE-46D1-AF0A-4143F9B557AA}
+    {A87A00B1-E6DB-45AB-8B54-636FEC3B5523}
+- ID: "ca9b9f52-4fb0-4f87-a79f-24dea62cda65"
+  Hint: __Default workflow
+  Value: 
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20061024T144300Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\Admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "e8ebfa86-a06d-456d-b99d-14e4eaffb69b"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20200630T201547Z
