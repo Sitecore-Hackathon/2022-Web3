@@ -13,7 +13,7 @@ Clone and install Sitecore CLI:
 
 1. `dotnet tool restore`
 
-Then to configure a operator endpoint and start new instance:
+Then to configure a operator endpoint and start new instance using our plugin:
 
 1. `dotnet sitecore instance init --url http://operator-127-0-0-1.nip.io`
 1. `dotnet sitecore instance start -n 'example' --pwd 'b'`, returns the url of your new instance.
