@@ -20,6 +20,8 @@ namespace Web3.Operator.Cli.Tasks
 
         public async Task Execute(StartInstanceArgs args)
         {
+            args.Validate();
+
             var url = await _client.StartNewInstance(args.InstanceName, args.SitecoreAdminPassword);
             _logger.LogConsoleInformation($"Created {url}", System.ConsoleColor.Green);
         }
