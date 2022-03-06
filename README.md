@@ -39,9 +39,7 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 
 ⟹ Provide a video highlighting your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
 
-<!-- TODO -->
-
-⟹ [Replace this Video link](#video-link)
+⟹ [![Presentation video](https://img.youtube.com/vi/uLvj0LrnKRQ/0.jpg)](https://www.youtube.com/watch?v=uLvj0LrnKRQ)
 
 ## Pre-requisites and Dependencies
 
@@ -72,7 +70,7 @@ As an extra benefit and in the spirit of Hackathon and Community fun the CLI has
 1. `dotnet sitecore steve says` : get insights related to Sitecore's upcoming roadmap based on input from an external content service.
 1. you can use aliases such as `blockchain`, `nft` and `wallet` - we are a real web 3.0 team!
 
-![Jokes CLI](./docs/images/jokes.png)
+![Jokes CLI](docs/images/jokes.png?raw=true)
 
 ## Cleanup
 
