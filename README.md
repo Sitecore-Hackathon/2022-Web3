@@ -73,3 +73,7 @@ As an extra benefit and in the spirit of Hackathon and Community fun the CLI has
 1. you can use aliases such as `blockchain`, `nft` and `wallet` - we are a real web 3.0 team!
 
 ![Jokes CLI](./docs/images/jokes.png)
+
+## Cleanup
+
+1. Run `.\Stop.ps1` to stop all containers
