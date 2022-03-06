@@ -40,6 +40,7 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 ⟹ Provide a video highlighting your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
 
 ⟹ [![Presentation video](https://img.youtube.com/vi/uLvj0LrnKRQ/0.jpg)](https://www.youtube.com/watch?v=uLvj0LrnKRQ)
+The video is almost 10 minutes, but you can get the overview in the beginning, and see everything in the docs :)
 
 ## Pre-requisites and Dependencies
 
