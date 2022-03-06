@@ -52,7 +52,7 @@ An easy way to get running Sitecore XM CM instances for use in headless projects
 ## Installation instructions
 
 1. Make sure you have placed a valid Sitecore license file at `.\glitterfish\docker\build\cm\license.xml`
-1. Make sure you don't have anything else running on `localhost:80`
+1. Make sure you don't have anything else running on `localhost:80` (we will detect if IIS is running and stop it in Start.ps1 - this requires elevated mode)
 1. Run `.\Build.ps1` (builds the cm, operator and plugin)
 1. Run `.\Start.ps1` (starts the operator)
 
