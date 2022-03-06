@@ -74,4 +74,4 @@ As an extra benefit and in the spirit of Hackathon and Community fun the CLI has
 
 ## Cleanup
 
-1. Run `.\Stop.ps1` to stop all containers
+1. Run `.\Stop.ps1` to stop operator and instances.
